@@ -16,5 +16,5 @@ public:
     void RunPrompt();
 
 private:
-    void Run(std::string source);
+    void Run(const std::string& source);
 };

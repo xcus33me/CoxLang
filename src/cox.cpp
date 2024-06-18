@@ -1,10 +1,12 @@
 #include "cox.hpp"
 #include "scanner.hpp"
+#include "token.hpp"
 
 // stl
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 void Cox::RunFile(char* path) {
 
@@ -24,6 +26,7 @@ void Cox::RunPrompt() {
     }
 }
 
-void Cox::Run(std::string source) {
-    Scanner scanner;
+void Cox::Run(const std::string& source) {
+    Scanner scanner(source);
+    std::vector<Token> tokens = scanner.ScanTokens();
 }

@@ -6,8 +6,13 @@
 int main(int argc, char* argv[]) {
     if (argc > 1) {
         std::cout << "Usage: cox [script]";
-    } else if (argc == 1) {
-        Cox cox;
+        return;
+    } 
+    
+    Cox cox;
+    if (argc == 1) {
         cox.RunFile(argv[0]);
+    } else {
+        cox.RunPrompt();
     }
 }
