@@ -17,4 +17,10 @@ public:
 
 private:
     void Run(const std::string& source);
+
+    // Might be replaced with ErrorReporter class
+    void Error(int line, const std::string& message);
+    void Report(int line, const std::string& where, const std::string& message);
+
+    bool hadError_ = false;
 };
