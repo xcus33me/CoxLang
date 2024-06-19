@@ -22,5 +22,16 @@ public:
     std::vector<Token> ScanTokens();
     
 private:
-    std::string src_;
+    bool IsAtEnd();
+    char Advance();
+    void AddToken(TokenType type);
+    void AddToken(TokenType type, std::any literal);
+    void ScanToken();
+private:
+    const std::string src_;
+    std::vector<Token> tokens_;
+
+    size_t start_ = 0;
+    size_t curr_  = 0;
+    size_t line_  = 0;
 };
