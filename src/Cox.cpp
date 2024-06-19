@@ -1,4 +1,5 @@
 #include "Cox.hpp"
+#include "Error.hpp"
 #include "Scanner.hpp"
 #include "Token.hpp"
 
@@ -22,7 +23,7 @@ void Cox::RunFile(const std::string& path) {
 
     Run(source_code.str());
 
-    if (hadError_) {
+    if (ErrorReporter::had_error) {
         return;
     }
 }
@@ -38,7 +39,7 @@ void Cox::RunPrompt() {
         }
 
         Run(line);
-        hadError_ = false;
+        ErrorReporter::had_error = false;
     }
 }
 
@@ -50,19 +51,4 @@ void Cox::Run(const std::string& source) {
     for (const Token& token : tokens) {
         std::cout << token;
     }
-}
-
-void Cox::Error(int line, const std::string& message) {
-    Report(line, "", message);
-}
-
-void Cox::Report(int line, const std::string& where, const std::string& message) {
-    // Needs something like
-    // Error: Unexpected "," in argument list.
-    //
-    //     15 | function(first, second,);
-    //                                ^-- Here.
-    //
-    std::cout << "[line " << line << "] Error" << where << ": " << message;
-    hadError_ = true;
 }

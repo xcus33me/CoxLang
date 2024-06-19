@@ -5,8 +5,8 @@
 
 int main(int argc, char* argv[]) {
     if (argc > 1) {
-        std::cout << "Usage: cox [script]";
-        return;
+        std::cerr << "Usage: cox [path]";
+        
     } 
     
     Cox cox;
@@ -15,4 +15,6 @@ int main(int argc, char* argv[]) {
     } else {
         cox.RunPrompt();
     }
+
+    return 0;
 }
