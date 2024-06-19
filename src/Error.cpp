@@ -14,8 +14,11 @@ namespace ErrorReporter {
         //     15 | function(first, second,);
         //                                ^-- Here.
         //
-        fmt::print("[line {}] Error {}: {}", line, where, message);
-        //std::cout << "[line " << line << "] Error" << where << ": " << message;
+        fmt::print("Debug: Report called with line={}, where={}, message={}\n", line, where, message);
+
+        fmt::print("Error: {}.\n\n", message);
+        fmt::print("    {} | {}\n\n", line, where);
+        
         had_error = true;
     }
 

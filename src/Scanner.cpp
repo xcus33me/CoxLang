@@ -1,4 +1,5 @@
 #include "Scanner.hpp" 
+#include "Error.hpp"
 #include "Token.hpp"
 
 // stl
@@ -36,6 +37,10 @@ void Scanner::ScanToken() {
         case ';': AddToken(TokenType::SEMICOLON); break;
         case '/': AddToken(TokenType::SLASH); break;
         case '*': AddToken(TokenType::STAR); break;
+
+        default:
+            ErrorReporter::Error(line_, "Invalid character: " + c);
+            break;
     }
 }
 
