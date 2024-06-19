@@ -1,6 +1,6 @@
 #include "Error.hpp"
 
-#include <iostream>
+#include "fmt/core.h"
 
 namespace ErrorReporter {
     void Error(int line, const std::string& message) {
@@ -14,7 +14,8 @@ namespace ErrorReporter {
         //     15 | function(first, second,);
         //                                ^-- Here.
         //
-        std::cout << "[line " << line << "] Error" << where << ": " << message;
+        fmt::print("[line {}] Error {}: {}", line, where, message);
+        //std::cout << "[line " << line << "] Error" << where << ": " << message;
         had_error = true;
     }
 
