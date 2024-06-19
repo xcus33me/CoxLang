@@ -1,5 +1,7 @@
 #pragma once
 
+#include "fmt/core.h"
+
 // stl
 
 #include <any>
@@ -67,4 +69,20 @@ struct Token {
     Token(TokenType type, std::string lexeme, std::any literal, size_t line);
 
     friend std::ostream& operator<<(std::ostream& os, const Token& token);
+};
+
+template<>
+struct fmt::formatter<Token> {
+    constexpr auto parse(fmt::format_parse_context& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const Token& token, FormatContext& ctx) {
+        return fmt::format_to(
+            ctx.out(),
+            "Token(type: {}, lexeme: {}, line: {})",
+            token.type_, token.lexeme_, token.line_
+        );
+    }
 };
