@@ -1,6 +1,12 @@
 #pragma once
 
-enum TokenTypes {
+// stl
+
+#include <any>
+#include <iostream>
+#include <string>
+
+enum TokenType {
     // Single-character tokens
     LEFT_PAREN = 0,
     RIGHT_PAREN,
@@ -40,6 +46,8 @@ enum TokenTypes {
     NIL,
     WHILE,
     FOR,
+    CONTINUE,
+    BREAK,
     PRINT,
     FUN,
     RETURN,
@@ -51,5 +59,12 @@ enum TokenTypes {
 };
 
 struct Token {
-    friend std::ofstream& operator<<(std::ostream& os, const Token& token);
+    TokenType type_;
+    std::string lexeme_;
+    std::any literal_;
+    uint32_t line_;
+
+    Token(TokenType type, std::string lexeme, std::any literal, uint32_t line);
+
+    friend std::ostream& operator<<(std::ostream& os, const Token& token);
 };
