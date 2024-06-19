@@ -3,6 +3,8 @@
 #include "Scanner.hpp"
 #include "Token.hpp"
 
+#include "fmt/core.h"
+
 // stl
 
 #include <iostream>
@@ -17,8 +19,8 @@ Cox::Cox() {
 void Cox::RunFile(const std::string& path) {
     std::ifstream input_file(path);
     if (input_file.fail()) {
-        std::cerr << "Failed to open file " << path << "\n";\
-        return;
+        fmt::print("Failed to open file '{}'", path);
+        std::exit(EXIT_FAILURE);
     }
 
     std::stringstream source_code;
@@ -33,7 +35,7 @@ void Cox::RunFile(const std::string& path) {
 
 void Cox::RunPrompt() {
     while (true) {
-        std::cout << "> ";
+        fmt::print("> ");
         std::string line;
         std::getline(std::cin, line);
 
@@ -52,6 +54,6 @@ void Cox::Run(const std::string& source) {
 
     // For now, just print the tokens
     for (const Token& token : tokens) {
-        std::cout << token;
+        fmt::print("{}\n", token);
     }
 }

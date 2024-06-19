@@ -1,4 +1,5 @@
 #include "Cox.hpp"
+
 #include "fmt/core.h"
 
 // stl
@@ -7,7 +8,7 @@
 
 int main(int argc, char* argv[]) {
     if (argc > 2) {
-        fmt::print(stderr, "Usage: cox [path]\n");
+        fmt::print("Usage: cox [path]\n");
         std::exit(EXIT_FAILURE);
     }
     
