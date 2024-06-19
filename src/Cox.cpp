@@ -11,6 +11,9 @@
 #include <sstream>
 #include <vector>
 
+Cox::Cox() {
+}
+
 void Cox::RunFile(const std::string& path) {
     std::ifstream input_file(path);
     if (input_file.fail()) {

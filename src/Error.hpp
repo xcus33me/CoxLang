@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 namespace ErrorReporter {
-    inline bool had_error;
+    inline bool had_error = false;
 
     void Error(int line, const std::string& message);
     void Report(int line, const std::string& where, const std::string& message);
