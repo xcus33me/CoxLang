@@ -12,7 +12,7 @@ public:
     Cox& operator=(const Cox&) = delete;
     Cox& operator=(Cox&&) = delete;
 
-    void RunFile(char* path);
+    void RunFile(const std::string& path);
     void RunPrompt();
 
 private:

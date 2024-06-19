@@ -5,14 +5,25 @@
 // stl
 
 #include <iostream>
+#include <fstream>
 #include <string>
+#include <sstream>
 #include <vector>
 
-void Cox::RunFile(char* path) {
-    // Read bytes
+void Cox::RunFile(const std::string& path) {
+    std::ifstream input_file(path);
+    if (input_file.fail()) {
+        std::cerr << "Failed to open file " << path << "\n";\
+        return;
+    }
+
+    std::stringstream source_code;
+    source_code << input_file.rdbuf();
+
+    Run(source_code.str());
+
     if (hadError_) {
-        std::cerr << "Error executing the file.";
-        std::exit(EXIT_FAILURE);
+        return;
     }
 }
 
