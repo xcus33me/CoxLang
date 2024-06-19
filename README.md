@@ -5,11 +5,8 @@ ___
 ## Building
 1. Create the bin directory
 2. Navigate to the bin directory:
-```sh
- cd bin ```
+```cd bin ```
 4. Generate the build files using 'cmake':
-```sh
- cmake .. ```
+```cmake .. ```
 5. Build the project:
-```sh
-cmake --build . ```
+```cmake --build . ```
