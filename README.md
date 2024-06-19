@@ -12,7 +12,7 @@ cd bin
 ```
 cmake ..
 ```
-6. Build the project:
+5. Build the project:
 ```
 cmake --build .
 ```
