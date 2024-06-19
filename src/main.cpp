@@ -1,17 +1,19 @@
 #include "Cox.hpp"
+#include "fmt/core.h"
 
 // stl
 #include <iostream>
 
+
 int main(int argc, char* argv[]) {
-    if (argc > 1) {
-        std::cerr << "Usage: cox [path]";
-        
-    } 
+    if (argc > 2) {
+        fmt::print(stderr, "Usage: cox [path]\n");
+        std::exit(EXIT_FAILURE);
+    }
     
     Cox cox;
-    if (argc == 1) {
-        cox.RunFile(argv[0]);
+    if (argc == 2) {
+        cox.RunFile(argv[1]);
     } else {
         cox.RunPrompt();
     }
