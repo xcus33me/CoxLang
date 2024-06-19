@@ -1,6 +1,6 @@
 #include "token.hpp"
 
-Token::Token(TokenType type, std::string lexeme, std::any literal, uint32_t line) 
+Token::Token(TokenType type, std::string lexeme, std::any literal, size_t line) 
     : type_{type}, lexeme_{std::move(lexeme)}, literal_{std::move(literal)}, line_{line} {}
 
 std::ostream& operator<<(std::ostream& os, const Token& token) {

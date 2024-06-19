@@ -55,16 +55,16 @@ enum TokenType {
     THIS,
     SUPER,
 
-    eof
+    EOF_TOKEN
 };
 
 struct Token {
     TokenType type_;
     std::string lexeme_;
     std::any literal_;
-    uint32_t line_;
+    size_t line_;
 
-    Token(TokenType type, std::string lexeme, std::any literal, uint32_t line);
+    Token(TokenType type, std::string lexeme, std::any literal, size_t line);
 
     friend std::ostream& operator<<(std::ostream& os, const Token& token);
 };
