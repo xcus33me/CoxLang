@@ -1,4 +1,4 @@
-#include "token.hpp"
+#include "Token.hpp"
 
 Token::Token(TokenType type, std::string lexeme, std::any literal, size_t line) 
     : type_{type}, lexeme_{std::move(lexeme)}, literal_{std::move(literal)}, line_{line} {}

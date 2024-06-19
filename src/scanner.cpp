@@ -1,5 +1,5 @@
-#include "scanner.hpp" 
-#include "token.hpp"
+#include "Scanner.hpp" 
+#include "Token.hpp"
 
 // stl
 

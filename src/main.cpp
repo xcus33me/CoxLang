@@ -1,4 +1,4 @@
-#include "cox.cpp"
+#include "Cox.cpp"
 
 // stl
 #include <iostream>

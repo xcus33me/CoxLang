@@ -1,6 +1,6 @@
-#include "cox.hpp"
-#include "scanner.hpp"
-#include "token.hpp"
+#include "Cox.hpp"
+#include "Scanner.hpp"
+#include "Token.hpp"
 
 // stl
 
