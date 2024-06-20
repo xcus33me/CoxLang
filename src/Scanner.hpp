@@ -22,11 +22,16 @@ public:
     std::vector<Token> ScanTokens();
     
 private:
-    bool IsAtEnd();
+    bool IsAtEnd() const;
+    bool Match(char expected);
     char Advance();
+    char Peek() const;
     void AddToken(TokenType type);
     void AddToken(TokenType type, std::any literal);
     void ScanToken();
+    
+    void ScanString();
+
 private:
     const std::string src_;
     std::vector<Token> tokens_;
