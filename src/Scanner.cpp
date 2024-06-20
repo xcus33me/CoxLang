@@ -4,6 +4,7 @@
 
 // stl
 
+#include <string>
 #include <vector>
 
 bool Scanner::IsAtEnd() {
@@ -39,7 +40,8 @@ void Scanner::ScanToken() {
         case '*': AddToken(TokenType::STAR); break;
 
         default:
-            ErrorReporter::Error(line_, "Invalid character: " + c);
+            std::string err = "Invalid character: " + c;
+            ErrorReporter::Error(line_, err);
             break;
     }
 }
