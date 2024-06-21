@@ -19,7 +19,7 @@ Cox::Cox() {
 void Cox::RunFile(const std::string& path) {
     std::ifstream input_file(path);
     if (input_file.fail()) {
-        fmt::print("Failed to open file '{}'", path);
+        fmt::print("Failed to open file '{}'\n", path);
         std::exit(EXIT_FAILURE);
     }
 
