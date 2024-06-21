@@ -19,7 +19,6 @@ void Scanner::ScanToken() {
         case '-': AddToken(TokenType::MINUS); break;
         case '+': AddToken(TokenType::PLUS); break;
         case ';': AddToken(TokenType::SEMICOLON); break;
-        case '/': AddToken(TokenType::SLASH); break;
         case '*': AddToken(TokenType::STAR); break;
         
         case '!':
@@ -84,11 +83,11 @@ bool Scanner::Match(char expected) {
     if (IsAtEnd()) {
         return false;
     }   
-    if (src_.at(cur_) != expected) {
+    if (src_.at(curr_) != expected) {
         return false;
     }
 
-    ++cur_;
+    ++curr_;
     return true;
 }
 
@@ -113,7 +112,17 @@ void Scanner::ScanString() {
     while (Peek() != '"' && !IsAtEnd()) {
         if (Peek() == '\n') {
             ++line_;
-            Advance();
         }
+        Advance();
     }
+
+    if (IsAtEnd()) {
+        ErrorReporter::Error(line_, "Unterminated string");
+        return;
+    }
+
+    Advance();
+
+    std::string value = src_.substr(start_ + 1, (curr_ - start_));
+    AddToken(TokenType::STRING, value);
 }
