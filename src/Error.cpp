@@ -14,8 +14,6 @@ namespace ErrorReporter {
         //     15 | function(first, second,);
         //                                ^-- Here.
         //
-        fmt::print("Debug: Report called with line={}, where={}, message={}\n", line, where, message);
-
         fmt::print("Error: {}.\n\n", message);
         fmt::print("    {} | {}\n\n", line, where);
         
