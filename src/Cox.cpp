@@ -54,6 +54,7 @@ void Cox::Run(const std::string& source) {
 
     // For now, just print the tokens
     for (const Token& token : tokens) {
-        fmt::print("{}\n", token);
+        std::cout << token << std::endl;
+        //fmt::print("{}\n", token);
     }
 }
