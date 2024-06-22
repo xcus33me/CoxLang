@@ -25,6 +25,7 @@ private:
     bool IsAtEnd() const;
     bool IsDigit(char c) const;
     bool IsAlpha(char c) const;
+    bool IsAlphaNumeric(char c) const;
     bool Match(char expected);
     char Advance();
     char Peek(bool next=false) const;

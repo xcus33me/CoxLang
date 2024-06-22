@@ -5,8 +5,30 @@
 // stl
 
 #include <any>
-#include <string>
+#include <unordered_map>
 #include <vector>
+#include <string>
+
+static const std::unordered_map<std::string, TokenType> KEY_WORDS = {
+    {"var",      TokenType::VAR},
+    {"and",      TokenType::AND},
+    {"or",       TokenType::OR},
+    {"if",       TokenType::IF},
+    {"else",     TokenType::ELSE},
+    {"true" ,    TokenType::TRUE},
+    {"false",    TokenType::FALSE},
+    {"nil",      TokenType::NIL},
+    {"while",    TokenType::WHILE},
+    {"for",      TokenType::FOR},
+    {"continue", TokenType::CONTINUE},
+    {"break",    TokenType::BREAK},
+    {"print",    TokenType::PRINT},
+    {"fun",      TokenType::FUN},
+    {"return",   TokenType::RETURN},
+    {"class",    TokenType::CLASS},
+    {"this",     TokenType::THIS},
+    {"super",    TokenType::SUPER},
+};
 
 void Scanner::ScanToken() {
     char c = Advance();
@@ -59,10 +81,13 @@ void Scanner::ScanToken() {
         default:
             if (IsDigit(c)) {
                 ScanDigit();
+                break;
             } else if (IsAlpha(c)) {
                 ScanIdentifier();
+                break;
             } else {
-                ErrorReporter::Error(line_, "Unexpected character: " + c);
+                std::cout << "Unexpected char " + c;
+                //ErrorReporter::Error(line_, "Unexpected character: " + c);
                 return;
             }
     }
@@ -153,5 +178,22 @@ void Scanner::ScanDigit() {
 }
 
 bool Scanner::IsAlpha(char c) const {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_');
+}
+
+void Scanner::ScanIdentifier() {
+    while(IsAlphaNumeric(Peek())) {
+        Advance();
+    }
+
+    std::string word = src_.substr(start_, curr_ - start_);
+    if (KEY_WORDS.find(word) != KEY_WORDS.end()) {
+        AddToken(KEY_WORDS.at(word));
+    } else {
+        AddToken(TokenType::IDENTIFIER, word);
+    }
+}
+
+bool Scanner::IsAlphaNumeric(char c) const {
+    return IsAlpha(c) || IsDigit(c);
 }
