@@ -71,7 +71,7 @@ struct Token {
     friend std::ostream& operator<<(std::ostream& os, const Token& token);
 };
 
-template<>
+/*template<>
 struct fmt::formatter<Token> {
     constexpr auto parse(fmt::format_parse_context& ctx) {
         return ctx.begin();
@@ -85,4 +85,4 @@ struct fmt::formatter<Token> {
             token.type_, token.lexeme_, token.line_
         );
     }
-};
+};*/
