@@ -23,14 +23,18 @@ public:
     
 private:
     bool IsAtEnd() const;
+    bool IsDigit(char c) const;
+    bool IsAlpha(char c) const;
     bool Match(char expected);
     char Advance();
-    char Peek() const;
+    char Peek(bool next=false) const;
     void AddToken(TokenType type);
     void AddToken(TokenType type, std::any literal);
+
     void ScanToken();
-    
     void ScanString();
+    void ScanDigit();
+    void ScanIdentifier();
 
 private:
     const std::string src_;
