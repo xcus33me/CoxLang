@@ -10,35 +10,35 @@ public:
     Expr() = default;
     virtual ~Expr() = default;
 
-    Expr(const Expr&) = delete;
-    Expr(Expr&&) = delete;
-    Expr& operator=(const Expr&) = delete;
-    Expr& operator=(const Expr&) = delete;
+    //Expr(const Expr&) = delete;
+    //Expr(Expr&&) = delete;
+    //Expr& operator=(const Expr&) = delete;
+    //Expr& operator=(const Expr&) = delete;
 
-    class Binary;
-    class Literal;
-    class Unary;
-    class Grouping;
+    struct Binary;
+    struct Literal;
+    struct Unary;
+    struct Grouping;
 };
 
 struct Expr::Binary : public Expr {
 public:
     Binary() = delete;
-    Binary(std::shared_ptr<const Expr> left, Token op, std::shared_ptr<const Expr> right);
+    Binary(std::shared_ptr<Expr> left, Token op, std::shared_ptr<Expr> right);
      
     std::shared_ptr<Expr> left_;
     Token op_;
     std::shared_ptr<Expr> right_;
 };
 
-class Expr::Literal {
+struct Expr::Literal {
 
 };
 
-class Expr::Unary {
+struct Expr::Unary {
 
 };
 
-class Expr::Grouping {
+struct Expr::Grouping {
 
 };
