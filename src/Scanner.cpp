@@ -102,10 +102,10 @@ char Scanner::Advance() {
 }
 
 void Scanner::AddToken(TokenType type) {
-    AddToken(type, nullptr);
+    AddToken(type, "");
 }
 
-void Scanner::AddToken(TokenType type, std::any literal) {
+void Scanner::AddToken(TokenType type, Literal literal) {
     std::string text = src_.substr(start_, (curr_ - start_));
     tokens_.emplace_back(Token(type, text, literal, line_));
 }
@@ -135,7 +135,7 @@ std::vector<Token> Scanner::ScanTokens() {
         ScanToken();
     }
 
-    tokens_.emplace_back(Token(TokenType::EOF_TOKEN, "", nullptr, line_));
+    tokens_.emplace_back(Token(TokenType::EOF_TOKEN, "", "", line_));
     return tokens_;
 }
 
@@ -167,7 +167,7 @@ void Scanner::ScanDigit() {
         Advance();
     }
 
-    std::any num_literal;
+    Literal num_literal;
     try {
         num_literal = std::stold(src_.substr(start_, curr_ - start_));
     } catch (const std::invalid_argument& e) {

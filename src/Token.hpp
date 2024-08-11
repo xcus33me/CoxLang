@@ -2,6 +2,8 @@
 
 #include "fmt/core.h"
 
+#include "Ltype.hpp"
+
 // stl
 
 #include <any>
@@ -63,12 +65,16 @@ enum TokenType {
 struct Token {
     TokenType type_;
     std::string lexeme_;
-    std::any literal_;
+    Literal literal_;
     size_t line_;
 
-    Token(TokenType type, std::string lexeme, std::any literal, size_t line);
+    Token(TokenType type, std::string lexeme, Literal literal, size_t line) 
+        : type_{type}, lexeme_{std::move(lexeme)}, literal_{std::move(literal)}, line_{line} {}
 
-    friend std::ostream& operator<<(std::ostream& os, const Token& token);
+    friend std::ostream& operator<<(std::ostream& os, const Token& token) {
+        os << "Type: " << token.type_ << ", Lexeme: " << token.lexeme_ << ", Line: " << token.line_ << std::endl;
+        return os;
+    }
 };
 
 /*template<>

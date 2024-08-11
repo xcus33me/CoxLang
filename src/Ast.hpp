@@ -2,68 +2,58 @@
 
 #include "Token.hpp"
 #include "Utils.hpp"
+#include "Ltype.hpp"
 
-#include <variant>
 #include <memory>
 
-struct AssignExpr;
 struct BinaryExpr;
-struct CallExpr;
-struct GetExpr;
 struct GroupingExpr;
 struct UnaryExpr;
 struct LiteralExpr;
-struct LogicalExpr;
 
-using AssignExprPtr = std::shared_ptr<AssignExpr>;
-using BinaryExprPtr = std::shared_ptr<BinaryExpr>;
-using CallExprPtr = std::shared_ptr<CallExpr>;
-using GetExprPtr = std::shared_ptr<GetExpr>;
-using GroupingExprPtr = std::shared_ptr<GroupingExpr>;
-using UnaryExprPtr = std::shared_ptr<UnaryExpr>;
-using LiteralExprPtr = std::shared_ptr<LiteralExpr>;
-using LogicalExprPtr = std::shared_ptr<LogicalExpr>;
+struct ExprVisitor;
 
-using Expr = std::variant<
-    AssignExprPtr,
-    BinaryExprPtr,
-    CallExprPtr,
-    GetExprPtr,
-    GroupingExprPtr,
-    UnaryExprPtr,
-    LiteralExprPtr,
-    LogicalExprPtr>;
-
-
-struct Assignable : private Uncopyable {
-    Token name;
-    mutable signed long distance = -1;
-    mutable bool isCaptured = false;
-
-    explicit Assignable(const Token& name) : name{name} {
-    }
+struct Expr : private Uncopyable {
+    virtual void accept(ExprVisitor& visitor) = 0;
+    virtual ~Expr() = default;
 };
 
-struct AssignExpr final : Assignable {
-    Expr value_;
-    
-    explicit AssignExpr(const Token& name, Expr value) : Assignable(name), value_{std::move(value)} {
-    }
-};
-
-struct BinaryExpr final {
-    Expr left_;
+struct BinaryExpr final : public Expr {
+    std::unique_ptr<Expr> left_;
     Token op_;
-    Expr right_;
+    std::unique_ptr<Expr> right_;
 
-    explicit BinaryExpr(Expr left, const Token& op, Expr right)
+    explicit BinaryExpr(std::unique_ptr<Expr> left, const Token& op, std::unique_ptr<Expr> right) 
         : left_(std::move(left)), op_{op}, right_(std::move(right)) {}
+
+    void accept(ExprVisitor& visitor) override {
+        // to do
+    }
 };
 
-struct UnaryExpr final {
-    Expr expr_;
+struct GroupingExpr final : public Expr {
+    std::unique_ptr<Expr> expression_;
+
+    explicit GroupingExpr(std::unique_ptr<Expr> expression)
+        : expression_(std::move(expression)) {}
+    
+    void accept(ExprVisitor& visitor) override {
+        // to do
+    }
+};
+
+struct UnaryExpr final : public Expr {
+    std::unique_ptr<Expr> expression_;
     Token op_;
 
-    explicit UnaryExpr(const Token& op, Expr expr)
-        : expr_(std::move(expr)), op_{op} {}
+    explicit UnaryExpr(std::unique_ptr<Expr> expression, const Token& op)
+        : expression_(std::move(expression)), op_{op} {}
+
+    void accept(ExprVisitor& visitor) override {
+        // to do
+    }
+};
+
+struct LiteralExpr final : public Expr {
+
 };
