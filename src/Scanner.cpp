@@ -169,7 +169,7 @@ void Scanner::ScanDigit() {
 
     Literal num_literal;
     try {
-        num_literal = std::stold(src_.substr(start_, curr_ - start_));
+        num_literal = static_cast<double>(std::stold(src_.substr(start_, curr_ - start_)));
     } catch (const std::invalid_argument& e) {
         ErrorReporter::Error(line_, "The number format is incorrect");
     }
