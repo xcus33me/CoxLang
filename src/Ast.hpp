@@ -2,7 +2,6 @@
 
 #include "Token.hpp"
 #include "Utils.hpp"
-#include "Ltype.hpp"
 
 #include <memory>
 
@@ -60,9 +59,9 @@ struct UnaryExpr final : public Expr {
 };
 
 struct LiteralExpr final : public Expr {
-    LType value_;
+    std::any value_;
 
-    explicit LiteralExpr(LType value)
+    explicit LiteralExpr(std::any value)
         : value_(value) {}
 
     void accept(ExprVisitor& visitor) override {
