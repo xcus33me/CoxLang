@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Token.hpp>
-#include <Ltype.hpp>
 
 // stl
 
@@ -31,7 +30,7 @@ private:
     char Advance();
     char Peek(bool next=false) const;
     void AddToken(TokenType type);
-    void AddToken(TokenType type, Literal literal);
+    void AddToken(TokenType type, std::any literal);
 
     void ScanToken();
     void ScanString();

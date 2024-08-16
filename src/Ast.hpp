@@ -11,7 +11,12 @@ struct GroupingExpr;
 struct UnaryExpr;
 struct LiteralExpr;
 
-struct ExprVisitor;
+struct ExprVisitor {
+    virtual void visitBinaryExpr(const BinaryExpr& expr) = 0;
+    virtual void visitGroupingExpr(const GroupingExpr& expr) = 0;
+    virtual void visitUnaryExpr(const UnaryExpr& expr) = 0;
+    virtual void visitLiteralExpr(const LiteralExpr& expr) = 0;
+};
 
 struct Expr : private Uncopyable {
     virtual void accept(ExprVisitor& visitor) = 0;
@@ -55,5 +60,12 @@ struct UnaryExpr final : public Expr {
 };
 
 struct LiteralExpr final : public Expr {
+    LType value_;
 
+    explicit LiteralExpr(LType value)
+        : value_(value) {}
+
+    void accept(ExprVisitor& visitor) override {
+        // to do
+    }
 };

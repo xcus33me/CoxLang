@@ -105,7 +105,7 @@ void Scanner::AddToken(TokenType type) {
     AddToken(type, "");
 }
 
-void Scanner::AddToken(TokenType type, Literal literal) {
+void Scanner::AddToken(TokenType type, std::any literal) {
     std::string text = src_.substr(start_, (curr_ - start_));
     tokens_.emplace_back(Token(type, text, literal, line_));
 }
@@ -167,7 +167,7 @@ void Scanner::ScanDigit() {
         Advance();
     }
 
-    Literal num_literal;
+    std::any num_literal;
     try {
         num_literal = static_cast<double>(std::stold(src_.substr(start_, curr_ - start_)));
     } catch (const std::invalid_argument& e) {
