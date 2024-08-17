@@ -29,37 +29,37 @@ static const std::unordered_map<std::string, TokenType> KEY_WORDS = {
 };
 
 void Scanner::ScanToken() {
-    char c = Advance();
+    char c = advance();
     switch (c) {
-        case '(': AddToken(TokenType::LEFT_PAREN); break;
-        case ')': AddToken(TokenType::RIGHT_PAREN); break;
-        case '{': AddToken(TokenType::LEFT_BRACE); break;
-        case '}': AddToken(TokenType::RIGHT_BRACE); break;
-        case ',': AddToken(TokenType::COMMA); break;
-        case '.': AddToken(TokenType::DOT); break;
-        case '-': AddToken(TokenType::MINUS); break;
-        case '+': AddToken(TokenType::PLUS); break;
-        case ';': AddToken(TokenType::SEMICOLON); break;
-        case '*': AddToken(TokenType::STAR); break;
+        case '(': add_token(TokenType::LEFT_PAREN); break;
+        case ')': add_token(TokenType::RIGHT_PAREN); break;
+        case '{': add_token(TokenType::LEFT_BRACE); break;
+        case '}': add_token(TokenType::RIGHT_BRACE); break;
+        case ',': add_token(TokenType::COMMA); break;
+        case '.': add_token(TokenType::DOT); break;
+        case '-': add_token(TokenType::MINUS); break;
+        case '+': add_token(TokenType::PLUS); break;
+        case ';': add_token(TokenType::SEMICOLON); break;
+        case '*': add_token(TokenType::STAR); break;
         
         case '!':
-            AddToken(Match('=') ? TokenType::BANG_EQUAL : TokenType::EQUAL);
+            add_token(match('=') ? TokenType::BANG_EQUAL : TokenType::EQUAL);
             break;
         case '=':
-            AddToken(Match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
+            add_token(match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
             break;
         case '<':
-            AddToken(Match('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
+            add_token(match('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
             break;
         case '>':
-            AddToken(Match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
+            add_token(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
         case '/':
-            if (Match('/')) {
-                while (Peek() != '\n' && !IsAtEnd()) {
-                    Advance();
+            if (match('/')) {
+                while (peek() != '\n' && !is_at_end()) {
+                    advance();
                 }
             } else {
-                AddToken(TokenType::SLASH); 
+                add_token(TokenType::SLASH);
             }
             break;
         case '"':
@@ -77,10 +77,10 @@ void Scanner::ScanToken() {
             break;
 
         default:
-            if (IsDigit(c)) {
+            if (is_digit(c)) {
                 ScanDigit();
                 break;
-            } else if (IsAlpha(c)) {
+            } else if (is_alpha(c)) {
                 ScanIdentifier();
                 break;
             } else {
@@ -91,25 +91,25 @@ void Scanner::ScanToken() {
     }
 }
 
-bool Scanner::IsAtEnd() const {
+bool Scanner::is_at_end() const {
     return curr_ >= src_.length();
 }
 
-char Scanner::Advance() {
+char Scanner::advance() {
     return src_.at(curr_++);
 }
 
-void Scanner::AddToken(TokenType type) {
-    AddToken(type, "");
+void Scanner::add_token(TokenType type) {
+    add_token(type, "");
 }
 
-void Scanner::AddToken(TokenType type, std::any literal) {
+void Scanner::add_token(TokenType type, std::any literal) {
     std::string text = src_.substr(start_, (curr_ - start_));
     tokens_.emplace_back(Token(type, text, literal, line_));
 }
 
-bool Scanner::Match(char expected) {
-    if (IsAtEnd()) {
+bool Scanner::match(char expected) {
+    if (is_at_end()) {
         return false;
     }   
     if (src_.at(curr_) != expected) {
@@ -120,15 +120,15 @@ bool Scanner::Match(char expected) {
     return true;
 }
 
-char Scanner::Peek(bool next) const {
-    if (IsAtEnd()) {
+char Scanner::peek(bool next) const {
+    if (is_at_end()) {
         return '\0';
     }
     return next ? src_.at(curr_ + 1) : src_.at(curr_);
 }
 
 std::vector<Token> Scanner::ScanTokens() {
-    while (!IsAtEnd()) {
+    while (!is_at_end()) {
         start_ = curr_;
         ScanToken();
     }
@@ -138,60 +138,60 @@ std::vector<Token> Scanner::ScanTokens() {
 }
 
 void Scanner::ScanString() {
-    while (Peek() != '"' && !IsAtEnd()) {
-        if (Peek() == '\n') {
+    while (peek() != '"' && !is_at_end()) {
+        if (peek() == '\n') {
             ++line_;
         }
-        Advance();
+        advance();
     }
 
-    if (IsAtEnd()) {
-        ErrorReporter::Error(line_, "Unterminated string");
+    if (is_at_end()) {
+        ErrorReporter::error(line_, "Unterminated string");
         return;
     }
 
-    Advance();
+    advance();
 
     std::string value = src_.substr(start_ + 1, (curr_ - start_));
-    AddToken(TokenType::STRING, value);
+    add_token(TokenType::STRING, value);
 }
 
-bool Scanner::IsDigit(char c) const {
+bool Scanner::is_digit(char c) const {
     return c >= '0' && c <= '9';
 }
 
 void Scanner::ScanDigit() {
-    while (IsDigit(Peek()) || Peek() == '.' || Peek() == 'e') {
-        Advance();
+    while (is_digit(peek()) || peek() == '.' || peek() == 'e') {
+        advance();
     }
 
     std::any num_literal;
     try {
         num_literal = static_cast<double>(std::stold(src_.substr(start_, curr_ - start_)));
     } catch (const std::invalid_argument& e) {
-        ErrorReporter::Error(line_, "The number format is incorrect");
+        ErrorReporter::error(line_, "The number format is incorrect");
     }
 
-    AddToken(TokenType::NUMBER, num_literal);
+    add_token(TokenType::NUMBER, num_literal);
 }
 
-bool Scanner::IsAlpha(char c) const {
+bool Scanner::is_alpha(char c) const {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_');
 }
 
 void Scanner::ScanIdentifier() {
-    while(IsAlphaNumeric(Peek())) {
-        Advance();
+    while(is_alphanumeric(peek())) {
+        advance();
     }
 
     std::string word = src_.substr(start_, curr_ - start_);
     if (KEY_WORDS.find(word) != KEY_WORDS.end()) {
-        AddToken(KEY_WORDS.at(word));
+        add_token(KEY_WORDS.at(word));
     } else {
-        AddToken(TokenType::IDENTIFIER, word);
+        add_token(TokenType::IDENTIFIER, word);
     }
 }
 
-bool Scanner::IsAlphaNumeric(char c) const {
-    return IsAlpha(c) || IsDigit(c);
+bool Scanner::is_alphanumeric(char c) const {
+    return is_alpha(c) || is_digit(c);
 }

@@ -8,8 +8,7 @@
 
 class Scanner {
 public:
-    Scanner(const std::string& source) : src_{source} {
-    }
+    Scanner(const std::string& source) : src_{source} { }
 
     Scanner(const Scanner&) = delete;
     Scanner(Scanner&&) = delete;
@@ -20,15 +19,17 @@ public:
     std::vector<Token> ScanTokens();
     
 private:
-    bool IsAtEnd() const;
-    bool IsDigit(char c) const;
-    bool IsAlpha(char c) const;
-    bool IsAlphaNumeric(char c) const;
-    bool Match(char expected);
-    char Advance();
-    char Peek(bool next=false) const;
-    void AddToken(TokenType type);
-    void AddToken(TokenType type, std::any literal);
+    [[nodiscard]] bool is_at_end() const;
+    [[nodiscard]] bool is_digit(char c) const;
+    [[nodiscard]] bool is_alpha(char c) const;
+    [[nodiscard]] bool is_alphanumeric(char c) const;
+    [[nodiscard]] char peek(bool next=false) const;
+
+    bool match(char expected);
+    char advance();
+
+    void add_token(TokenType type);
+    void add_token(TokenType type, std::any literal);
 
     void ScanToken();
     void ScanString();

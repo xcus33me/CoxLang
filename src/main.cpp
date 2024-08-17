@@ -11,9 +11,9 @@ int main(int argc, char* argv[]) {
     
     Cox cox;
     if (argc == 2) {
-        cox.RunFile(argv[1]);
+        cox.run_file(argv[1]);
     } else {
-        cox.RunPrompt();
+        cox.run_prompt();
     }
 
     return 0;
