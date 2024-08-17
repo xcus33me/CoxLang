@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <variant>
 
 #include "token.hpp"
 #include "utils.hpp"
@@ -11,10 +12,12 @@ struct UnaryExpr;
 struct LiteralExpr;
 
 struct ExprVisitor {
-    virtual void visitBinaryExpr(const BinaryExpr& expr) = 0;
-    virtual void visitGroupingExpr(const GroupingExpr& expr) = 0;
-    virtual void visitUnaryExpr(const UnaryExpr& expr) = 0;
-    virtual void visitLiteralExpr(const LiteralExpr& expr) = 0;
+    virtual ~ExprVisitor() = default;
+
+    virtual void visitBinaryExpr(const BinaryExpr* expr) = 0;
+    virtual void visitGroupingExpr(const GroupingExpr* expr) = 0;
+    virtual void visitUnaryExpr(const UnaryExpr* expr) = 0;
+    virtual void visitLiteralExpr(const LiteralExpr* expr) = 0;
 };
 
 struct Expr : private Uncopyable {
@@ -31,7 +34,7 @@ struct BinaryExpr final : public Expr {
         : left_(std::move(left)), op_{op}, right_(std::move(right)) {}
 
     void accept(ExprVisitor& visitor) override {
-        // to do
+        visitor.visitBinaryExpr(this);
     }
 };
 
@@ -42,7 +45,7 @@ struct GroupingExpr final : public Expr {
         : expression_(std::move(expression)) {}
     
     void accept(ExprVisitor& visitor) override {
-        // to do
+        visitor.visitGroupingExpr(this);
     }
 };
 
@@ -54,7 +57,7 @@ struct UnaryExpr final : public Expr {
         : expression_(std::move(expression)), op_{op} {}
 
     void accept(ExprVisitor& visitor) override {
-        // to do
+        visitor.visitUnaryExpr(this);
     }
 };
 
@@ -65,6 +68,6 @@ struct LiteralExpr final : public Expr {
         : value_(std::move(value)) {}
 
     void accept(ExprVisitor& visitor) override {
-        // to do
+        visitor.visitLiteralExpr(this);
     }
 };
