@@ -18,6 +18,7 @@ FetchContent_MakeAvailable(fmt)
 include_directories(src)
 file(GLOB SOURCES "src/*.cpp")
 
-add_executable(CoxLang ${SOURCES})
+add_executable(CoxLang ${SOURCES}
+        src/ast.hpp)
 
 target_link_libraries(CoxLang PRIVATE fmt::fmt)

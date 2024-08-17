@@ -1,20 +1,15 @@
-#include "Cox.hpp"
-#include "Error.hpp"
-#include "Scanner.hpp"
-#include "Token.hpp"
-
-#include "fmt/core.h"
-
-// stl
-
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
 
-Cox::Cox() {
-}
+#include "cox.hpp"
+#include "error.hpp"
+#include "scanner.hpp"
+#include "token.hpp"
+
+#include "fmt/core.h"
 
 void Cox::RunFile(const std::string& path) {
     std::ifstream input_file(path);

@@ -1,8 +1,5 @@
 #pragma once
 
-// stl
-
-#include <any>
 #include <stdexcept>
 
 namespace ErrorReporter {

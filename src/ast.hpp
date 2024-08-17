@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Token.hpp"
-#include "Utils.hpp"
-
 #include <memory>
+
+#include "token.hpp"
+#include "utils.hpp"
 
 struct BinaryExpr;
 struct GroupingExpr;

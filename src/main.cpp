@@ -1,10 +1,7 @@
-#include "Cox.hpp"
-
-#include "fmt/core.h"
-
-// stl
 #include <iostream>
 
+#include "Cox.hpp"
+#include "fmt/core.h"
 
 int main(int argc, char* argv[]) {
     if (argc > 2) {

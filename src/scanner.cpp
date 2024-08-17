@@ -1,13 +1,11 @@
-#include "Scanner.hpp" 
-#include "Error.hpp"
-#include "Token.hpp"
-
-// stl
-
 #include <any>
 #include <unordered_map>
 #include <vector>
 #include <string>
+
+#include "scanner.hpp"
+#include "error.hpp"
+#include "token.hpp"
 
 static const std::unordered_map<std::string, TokenType> KEY_WORDS = {
     {"var",      TokenType::VAR},

@@ -4,7 +4,7 @@
 
 class Cox {
 public:
-    Cox();
+    Cox() = default;
 
     Cox(const Cox&) = delete;
     Cox(Cox&&) = delete;

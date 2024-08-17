@@ -1,12 +1,10 @@
 #pragma once
 
-#include <Token.hpp>
-
-// stl
-
 #include <iostream>
 #include <string>
 #include <vector>
+
+#include "token.hpp"
 
 class Scanner {
 public:

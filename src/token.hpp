@@ -1,12 +1,10 @@
 #pragma once
 
-#include "fmt/core.h"
-
-// stl
-
 #include <any>
 #include <iostream>
 #include <string>
+
+#include "fmt/core.h"
 
 enum TokenType {
     // Single-character tokens

@@ -1,4 +1,4 @@
-#include "Error.hpp"
+#include "error.hpp"
 
 #include "fmt/core.h"
 

@@ -1,9 +1,7 @@
-#include "Ltype.hpp"
-
-// stl
-
 #include <string>
 #include <variant>
+
+#include "ltype.hpp"
 
 // LString
 
@@ -38,7 +36,7 @@ bool LString::operator==(const LString& rhs) const {
 
 // Functions
 
-std::string LiteralToString(const Literal& l) {
+/*std::string LiteralToString(const Literal& l) {
     return std::visit([](const auto& value) -> std::string {
         if constexpr (std::is_same_v<decltype(value), std::string) {
             return std::get<std::string>(value);
@@ -65,3 +63,4 @@ std::string ValueToString(const LType& l) {
 std::string TypeToString(const LType& l) {
     // to do
 }
+*/
