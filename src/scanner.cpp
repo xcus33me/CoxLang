@@ -105,7 +105,7 @@ void Scanner::add_token(TokenType type) {
 
 void Scanner::add_token(TokenType type, std::any literal) {
     std::string text = src_.substr(start_, (curr_ - start_));
-    tokens_.emplace_back(Token(type, text, literal, line_));
+    tokens_.emplace_back(type, text, std::move(literal), line_);
 }
 
 bool Scanner::match(char expected) {
