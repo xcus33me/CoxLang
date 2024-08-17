@@ -62,7 +62,7 @@ struct LiteralExpr final : public Expr {
     std::any value_;
 
     explicit LiteralExpr(std::any value)
-        : value_(value) {}
+        : value_(std::move(value)) {}
 
     void accept(ExprVisitor& visitor) override {
         // to do
