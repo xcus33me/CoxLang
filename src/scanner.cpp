@@ -85,7 +85,7 @@ void Scanner::ScanToken() {
                 break;
             } else {
                 std::cout << "Unexpected char " + c;
-                //ErrorReporter::Error(line_, "Unexpected character: " + c);
+                ErrorReporter::error(line_, "Unexpected character: " + c);
                 return;
             }
     }

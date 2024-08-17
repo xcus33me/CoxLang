@@ -18,7 +18,7 @@ enum TokenType {
     PLUS,
     SEMICOLON,
     SLASH,
-    STAR,
+    STAR, /// 10
 
     // One or two character tokens
     BANG,
@@ -32,7 +32,7 @@ enum TokenType {
 
     // Literals
     IDENTIFIER,
-    STRING,
+    STRING, /// 20
     NUMBER,
 
     // Keywords
