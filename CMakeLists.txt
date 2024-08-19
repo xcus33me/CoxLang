@@ -20,7 +20,7 @@ include_directories(src)
 
 add_executable(CoxLang
         src/cox_interpreter.cpp
-        src/error.cpp
+        src/logger.cpp
         src/ltype.cpp
         src/main.cpp
         src/scanner.cpp
