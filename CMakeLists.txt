@@ -16,9 +16,16 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(fmt)
 
 include_directories(src)
-file(GLOB SOURCES "src/*.cpp")
+#file(GLOB SOURCES "src/*.cpp")
 
-add_executable(CoxLang ${SOURCES}
-        src/tools/tree_printer.hpp)
+add_executable(CoxLang
+        src/cox_interpreter.cpp
+        src/error.cpp
+        src/ltype.cpp
+        src/main.cpp
+        src/scanner.cpp
+        src/expr.hpp
+        src/expr.hpp
+)
 
 target_link_libraries(CoxLang PRIVATE fmt::fmt)
