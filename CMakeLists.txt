@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.15)
 
 project(CoxLang)
 
@@ -18,6 +18,7 @@ FetchContent_MakeAvailable(fmt)
 include_directories(src)
 file(GLOB SOURCES "src/*.cpp")
 
-add_executable(CoxLang ${SOURCES})
+add_executable(CoxLang ${SOURCES}
+        src/tools/tree_printer.hpp)
 
 target_link_libraries(CoxLang PRIVATE fmt::fmt)
