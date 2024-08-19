@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Cox.hpp"
+#include "cox_interpreter.hpp"
 #include "fmt/core.h"
 
 int main(int argc, char* argv[]) {
