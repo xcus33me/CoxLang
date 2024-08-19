@@ -26,6 +26,8 @@ add_executable(CoxLang
         src/scanner.cpp
         src/expr.hpp
         src/expr.hpp
+        src/parser.hpp
+        src/parser.cpp
 )
 
 target_link_libraries(CoxLang PRIVATE fmt::fmt)
