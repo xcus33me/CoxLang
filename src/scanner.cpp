@@ -4,7 +4,7 @@
 #include <string>
 
 #include "scanner.hpp"
-#include "error.hpp"
+#include "logger.hpp"
 #include "token.hpp"
 
 static const std::unordered_map<std::string, TokenType> KEY_WORDS = {

@@ -1,13 +1,13 @@
-#include "error.hpp"
+#include "logger.hpp"
 
 #include "fmt/core.h"
 
 namespace ErrorReporter {
-    void error(size_t line, const std::string& message) {
+    void error(size_t line, const std::string &message) {
         report(line, "", message);
     }
 
-    void report(size_t line, const std::string& where, const std::string& message) {
+    void report(size_t line, const std::string &where, const std::string &message) {
         // Needs something like
         // Error: Unexpected "," in argument list.
         //
@@ -16,8 +16,7 @@ namespace ErrorReporter {
         //
         fmt::print("Error: {}.\n\n", message);
         fmt::print("    {} | {}\n\n", line, where);
-        
+
         had_error = true;
     }
-
 }

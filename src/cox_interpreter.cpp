@@ -4,8 +4,8 @@
 #include <sstream>
 #include <vector>
 
-#include "cox.hpp"
-#include "error.hpp"
+#include "cox_interpreter.hpp"
+#include "logger.hpp"
 #include "scanner.hpp"
 #include "token.hpp"
 
