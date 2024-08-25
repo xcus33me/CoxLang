@@ -30,7 +30,7 @@ struct BinaryExpr final : public Expr {
     Token op_;
     std::unique_ptr<Expr> right_;
 
-    explicit BinaryExpr(std::unique_ptr<Expr>& left, Token& op, std::unique_ptr<Expr>& right)
+    explicit BinaryExpr(std::unique_ptr<Expr>& left, Token op, std::unique_ptr<Expr>& right)
         : left_(std::move(left)), op_{op}, right_(std::move(right)) {}
 
     void accept(ExprVisitor& visitor) override {
@@ -53,7 +53,7 @@ struct UnaryExpr final : public Expr {
     std::unique_ptr<Expr> expression_;
     Token op_;
 
-    explicit UnaryExpr(std::unique_ptr<Expr> expression, const Token& op)
+    explicit UnaryExpr(std::unique_ptr<Expr>& expression, Token op)
         : expression_(std::move(expression)), op_{op} {}
 
     void accept(ExprVisitor& visitor) override {
