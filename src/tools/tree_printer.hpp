@@ -6,10 +6,15 @@
 #include <vector>
 #include <sstream>
 
+#include "fmt/core.h"
 #include "../expr.hpp"
 
 class AstPrinter : public ExprVisitor {
 public:
+    void print() {
+        fmt::print("{}\n", repr_);
+    }
+
     void set_repr(const std::unique_ptr<Expr>& expr) {
         expr->accept(*this);
     }

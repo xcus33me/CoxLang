@@ -7,12 +7,6 @@
 #include "expr.hpp"
 #include "token.hpp"
 
-struct ParseError : public std::runtime_error {
-    ParseError(const Token& token, const std::string& message) : std::runtime_error(message) {
-        ErrorReporter::error(token, message);
-    };
-};
-
 /// expression     → equality ;
 /// equality       → comparison ( ( "!=" | "==" ) comparison )* ;
 /// comparison     → term ( ( ">" | ">=" | "<" | "<=" ) term )* ;
@@ -26,7 +20,16 @@ public:
     explicit Parser(std::vector<Token> tokens);
     ~Parser() = default;
 
+    std::unique_ptr<Expr> parse();
+
 private:
+
+    struct ParseError final : public std::runtime_error {
+        ParseError(const Token& token, const std::string& message) : std::runtime_error(message) {
+            ErrorReporter::error(token, message);
+        };
+    };
+
     std::vector<Token> tokens_;
     size_t current_ = 0;
 
@@ -39,6 +42,8 @@ private:
     [[nodiscard]] Token previous() const;
 
     Token consume(TokenType type, std::string message);
+    ParseError error(Token token, std::string message);
+    void synchronize();
 
     std::unique_ptr<Expr> expression();
     std::unique_ptr<Expr> equality();
@@ -47,4 +52,5 @@ private:
     std::unique_ptr<Expr> factor();
     std::unique_ptr<Expr> unary();
     std::unique_ptr<Expr> primary();
+
 };

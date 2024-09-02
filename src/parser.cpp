@@ -2,11 +2,20 @@
 
 #include "expr.hpp"
 #include "parser.hpp"
+#include "logger.hpp"
 #include "token.hpp"
 
 Parser::Parser(std::vector<Token> tokens):
     tokens_(std::move(tokens)),
     current_(0) { }
+
+std::unique_ptr<Expr> Parser::parse() {
+    try {
+        return expression();
+    } catch (Parser::ParseError& e) {
+        return nullptr;
+    }
+}
 
 bool Parser::match(std::initializer_list<TokenType> types) {
     for (const auto& type : types) {
@@ -43,7 +52,32 @@ Token Parser::previous() const {
 
 Token Parser::consume(TokenType type, std::string message) {
     if (check(type)) return advance();
-    throw ParseError(peek(), message);
+    throw error(peek(), message);
+}
+
+Parser::ParseError Parser::error(Token token, std::string message) {
+    ErrorReporter::error(token, message);
+    return {peek(), message};
+}
+
+void Parser::synchronize() {
+    advance();
+
+    while (!is_at_end()) {
+        if (peek().type_ == TokenType::SEMICOLON) return;
+
+        switch (peek().type_) {
+            case TokenType::FUN:
+            case TokenType::FOR:
+            case TokenType::IF:
+            case TokenType::WHILE:
+            case TokenType::PRINT:
+            case TokenType::RETURN:
+                return;
+        }
+
+        advance();
+    }
 }
 
 std::unique_ptr<Expr> Parser::expression() {

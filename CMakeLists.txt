@@ -28,6 +28,9 @@ add_executable(CoxLang
         src/expr.hpp
         src/parser.hpp
         src/parser.cpp
+        src/cox_interpreter.hpp
+        src/cox_interpreter.hpp
+        src/cox_interpreter.hpp
 )
 
 target_link_libraries(CoxLang PRIVATE fmt::fmt)

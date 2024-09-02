@@ -6,8 +6,16 @@
 
 #include "cox_interpreter.hpp"
 #include "logger.hpp"
+#include "parser.hpp"
 #include "scanner.hpp"
 #include "token.hpp"
+
+// utils
+
+#include "tools/tree_printer.hpp"
+
+// fmt
+#include <windows.h>
 
 #include "fmt/core.h"
 
@@ -52,4 +60,14 @@ void Cox::run(const std::string& source) {
         std::cout << token << std::endl;
         //fmt::print("{}\n", token);
     }
+
+    Parser parser(tokens);
+    std::unique_ptr<Expr> expression = parser.parse();
+
+    if (ErrorReporter::had_error) return;
+
+    AstPrinter printer;
+    printer.set_repr(expression);
+
+    printer.print();
 }
