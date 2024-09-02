@@ -152,7 +152,7 @@ void Scanner::ScanString() {
 
     advance();
 
-    std::string value = src_.substr(start_ + 1, (curr_ - start_));
+    std::string value = src_.substr(start_ + 1, (curr_ - start_ - 2));
     add_token(TokenType::STRING, value);
 }
 
