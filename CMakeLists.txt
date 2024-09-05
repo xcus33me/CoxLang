@@ -19,7 +19,7 @@ include_directories(src)
 #file(GLOB SOURCES "src/*.cpp")
 
 add_executable(CoxLang
-        src/cox_interpreter.cpp
+        src/cox.cpp
         src/logger.cpp
         src/ltype.cpp
         src/main.cpp
@@ -28,9 +28,11 @@ add_executable(CoxLang
         src/expr.hpp
         src/parser.hpp
         src/parser.cpp
-        src/cox_interpreter.hpp
-        src/cox_interpreter.hpp
-        src/cox_interpreter.hpp
+        src/cox.hpp
+        src/cox.hpp
+        src/cox.hpp
+        src/interpreter.hpp
+        src/interpreter.cpp
 )
 
 target_link_libraries(CoxLang PRIVATE fmt::fmt)

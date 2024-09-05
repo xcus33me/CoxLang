@@ -4,7 +4,7 @@
 #include <sstream>
 #include <vector>
 
-#include "cox_interpreter.hpp"
+#include "cox.hpp"
 #include "logger.hpp"
 #include "parser.hpp"
 #include "scanner.hpp"
