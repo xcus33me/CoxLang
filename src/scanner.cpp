@@ -43,7 +43,7 @@ void Scanner::ScanToken() {
         case '*': add_token(TokenType::STAR); break;
         
         case '!':
-            add_token(match('=') ? TokenType::BANG_EQUAL : TokenType::EQUAL);
+            add_token(match('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
             break;
         case '=':
             add_token(match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
